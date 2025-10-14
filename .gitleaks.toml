@@ -1,0 +1,30 @@
+# --- Custom Gitleaks configuration for secrets and paths ---
+
+title = "Secure Code Rules"
+description = "Detects hardcoded credentials, API keys, and local paths"
+version = "1.0"
+
+[[rules]]
+id = "hardcoded-paths"
+description = "Hardcoded user or local file paths"
+regex = '''(/Users/|C:\\Users\\|C:/Users/)'''
+tags = ["path", "hardcoded"]
+
+[[rules]]
+id = "passwords"
+description = "Hardcoded passwords"
+regex = '''(?i)(db_password|password)\s*[:=]\s*["'].*["']'''
+tags = ["credential"]
+
+[[rules]]
+id = "api-keys"
+description = "API keys or tokens"
+regex = '''(?i)(api[_-]?key|token|secret)\s*[:=]\s*["'][A-Za-z0-9_\-]{10,}["']'''
+tags = ["credential"]
+
+[[rules]]
+id = "generic-secret"
+description = "Generic high-entropy secrets"
+regex = '''["']([A-Za-z0-9+/=]{20,})["']'''
+entropy = 3.5
+tags = ["generic", "secret"]
