@@ -1,0 +1,58 @@
+# --- Sensitive or private config files ---
+*.env
+*.key
+*.pem
+*.crt
+*credentials*.json
+*secret*.json
+*password*.txt
+*apikey*.txt
+*token*.txt
+*_private.py
+*_local.py
+*_secrets.py
+
+# --- Temporary or scratch notebooks ---
+notebooks/dev_*.ipynb
+notebooks/tmp_*.ipynb
+scratch_*.py
+tmp_*.ipynb
+
+# --- Data outputs ---
+output/
+*.csv
+*.xlsx
+*.parquet
+*.out
+*.err
+*.log
+
+# --- Byte-compiled / cache files ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Virtual environments ---
+.env/
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# --- Build / packaging / installer junk ---
+build/
+dist/
+*.egg-info/
+*.spec
+*.manifest
+
+# --- Editor / system files ---
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.bkp
