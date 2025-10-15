@@ -1,5 +1,4 @@
 repos:
-  # --- 1. Built-in sanity checks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
@@ -8,12 +7,11 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
 
-  # --- 2. Custom lightweight security scanner
   - repo: local
     hooks:
       - id: sensitive-info-check
         name: Sensitive Info / Secrets / Paths Check
-        entry: ".\\hooks\\run_sensitive_check.bat"
+        entry: bash hooks/sensitive_check.sh
         language: system
         pass_filenames: true
         files: \.(py|R|ipynb)$
