@@ -19,6 +19,13 @@ PATTERNS=(
   'db_password\s*='
   'secret\s*='
   'token\s*='
+  '\bAKIA[0-9A-Z]{16}\b'
+  'ghp_[A-Za-z0-9]{36}'
+  'AIza[0-9A-Za-z\-_]{35}'
+  'postgres:\/\/[A-Za-z0-9_\-]+:[^@]+@'
+  'BEGIN\s+RSA\s+PRIVATE\s+KEY'
+  'id_rsa'
+  '\.ssh/'
 )
 
 FAIL=0
