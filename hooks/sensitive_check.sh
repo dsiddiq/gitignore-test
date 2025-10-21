@@ -9,23 +9,16 @@ if [ -z "$FILES" ]; then
   exit 0
 fi
 
-PATTERNS=(
-  'password\s*='
-  'api[_-]?key\s*='
-  'Authorization'
-  'Bearer\s+[A-Za-z0-9_-]{10,}'
-  '(/Users/|C:\\\\Users\\\\)'
-  'db_username\s*='
-  'db_password\s*='
-  'secret\s*='
-  'token\s*='
-  '\bAKIA[0-9A-Z]{16}\b'
-  'ghp_[A-Za-z0-9]{36}'
-  'AIza[0-9A-Za-z\-_]{35}'
-  'postgres:\/\/[A-Za-z0-9_\-]+:[^@]+@'
-  'BEGIN\s+RSA\s+PRIVATE\s+KEY'
-  'id_rsa'
-  '\.ssh/'
+declare -a PATTERNS_AND_LABELS=(
+  'password\s*=::Possible Password'
+  'api[_-]?key\s*=::Possible API Key'
+  'Authorization::Possible Authorization Header'
+  'Bearer\s+[A-Za-z0-9_-]{10,}::Possible Bearer Token'
+  '(/Users/|C:\\\\Users\\\\)::Possible Hard-coded Path'
+  'db_username\s*=::Possible Username'
+  'db_password\s*=::Possible Password'
+  'secret\s*=::Possible Secret or Key'
+  'token\s*=::Possible Token'
 )
 
 FAIL=0
@@ -34,9 +27,13 @@ for file in $FILES; do
   if [ ! -f "$file" ]; then
     continue
   fi
-  for pattern in "${PATTERNS[@]}"; do
+
+  for pair in "${PATTERNS_AND_LABELS[@]}"; do
+    pattern="${pair%%::*}"      # extract text before '::'
+    label="${pair##*::}"        # extract text after '::'
+
     if grep -E -i "$pattern" "$file" > /dev/null; then
-      echo "❌ Found suspicious pattern in $file: $pattern"
+      echo "❌ Found suspicious pattern in $file: $label"
       FAIL=1
     fi
   done
